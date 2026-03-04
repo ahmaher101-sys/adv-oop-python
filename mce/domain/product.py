@@ -1,17 +1,23 @@
 from .money import Money
+from .shipping import ShippingCalculator
 
 class Product:
     
-    def __init__(self, product_id: str, name: str, price: Money):
+    def __init__(self, product_id: str, name: str, price: Money, shipping_calculator: ShippingCalculator):
         self._id = product_id
         self._name = name
         if not isinstance(price, Money):
             raise ValueError("Price needs to be of type Money")
         self._price = price
+        self._shipping_calculator = shipping_calculator
+        
+    
+    def calculate_shipping(self) -> Money:
+        return self._shipping_calculator.calculate()    
         
     
     def get_total_price(self):
-        return self._price
+        return self._price  + self._shipping_calculator.calculate()
     
     def calculate_tax(self):
         return Money(0, "USD")
@@ -30,7 +36,7 @@ class PhysicalProduct(Product):
         
     
     def get_total_price(self):
-        return self._price + self._shipping_cost
+        return self._price + self.calculate_shipping()
     
     def calculate_tax(self):
         return self._price * 0.15

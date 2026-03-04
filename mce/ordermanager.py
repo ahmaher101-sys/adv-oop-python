@@ -1,3 +1,7 @@
+from .domain.product import Product, FreeProduct
+from .domain.shipping import StandardShipping, FreeShipping
+
+
 class OrderManager:
     
     # Order 
@@ -15,3 +19,4 @@ class OrderManager:
     # InvoiceService 
     def print_invoice(self):
         pass
+    

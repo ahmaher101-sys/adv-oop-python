@@ -2,13 +2,15 @@ from .customer import Customer
 from .product import Product
 from .orderline import OrderLine
 from .money import Money
+from .payment import PaymentProcessor
 
 class Order:
-    def __init__(self, order_id: str, customer: Customer):
+    def __init__(self, order_id: str, customer: Customer, payment_processor: PaymentProcessor):
         self._id = order_id
         self._customer = customer
         
         self._lines = []
+        self._payment_processor = payment_processor
         
         
     def  add_product(self, product: Product, quantity: int):
@@ -18,6 +20,9 @@ class Order:
         return sum(line.line_total() for line in self._lines)
     
 
+    def checkout(self):
+        order_total = self.total()
+        self._payment_processor.process(order_total)
     
     @property
     def lines(self):
@@ -29,3 +34,5 @@ class Order:
             ret_val +=  str(line)
             ret_val += "\n"
         return ret_val
+    
+
