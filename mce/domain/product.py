@@ -1,5 +1,5 @@
 from .money import Money
-from .shipping import ShippingCalculator
+from .shipping import ShippingCalculator, FixedShipping, FreeShipping
 
 class Product:
     

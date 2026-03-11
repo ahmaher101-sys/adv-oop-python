@@ -13,8 +13,12 @@ class StandardShipping(ShippingCalculator):
 
 class HeavyShipping(ShippingCalculator):
     
+    def __init__(self, weight: float):
+        super().__init__()
+        self._weight = weight
+        
     def calculate(self):
-        return Money(25, 'USD')
+        return Money(self._weight * 2, 'USD')
     
     
 class InternationalShipping(ShippingCalculator):
@@ -29,14 +33,13 @@ class FreeShipping(ShippingCalculator):
         return Money(0, 'USD')
     
 
-class HeavyShipping(ShippingCalculator):
+class FixedShipping(ShippingCalculator):
     
-    def __init__(self, weight: float):
-        super().__init__()
-        self._weight = weight
+    def __init__(self, cost: Money):
+        self._cost = cost
         
-    def calculate(self):
-        return Money(self._weight * 2, 'USD')
+    def calculate(self) -> Money:
+        return self._cost
     
 
 class PromotionalShipping(ShippingCalculator):
