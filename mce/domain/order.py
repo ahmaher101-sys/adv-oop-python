@@ -5,11 +5,11 @@ from .money import Money
 from .payment import PaymentProcessor
 
 class Order:
-    def __init__(self, order_id: str, customer: Customer, payment_processor: PaymentProcessor):
+    def __init__(self, order_id: str, customer: Customer, payment_processor: PaymentProcessor, initial_line: OrderLine):
         self._id = order_id
         self._customer = customer
         
-        self._lines = []
+        self._lines = [initial_line]
         self._payment_processor = payment_processor
         
         

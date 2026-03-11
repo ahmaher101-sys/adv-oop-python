@@ -10,5 +10,11 @@ class Invoice:
         return self._order.total()
     
     def generate_text(self) -> str:
-        return str(self._order)
+        text = f"Invoice for Order {self._order._id}\n"
+        text += f"Customer: {self._order._customer._name}\n"
+        text += "Items:\n"
+        for line in self._order.lines:
+            text += f"  {line._product._name} x{line._quantity} @ {line._product._price} each\n"
+        text += f"Total: {self.total()}\n"
+        return text
     
