@@ -15,6 +15,9 @@ class Order:
         
     def  add_product(self, product: Product, quantity: int):
         self._lines.append(OrderLine(product, quantity))
+    
+    def remove_product(self, product_id: str):
+        self._lines = [line for line in self._lines if line._product._id != product_id]    
         
     def total(self) -> Money:
         return sum(line.line_total() for line in self._lines)
